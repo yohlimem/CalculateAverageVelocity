@@ -22,18 +22,18 @@ public class FindPlayerVelocity {
 
 
     }
-    public static Vec3d findPlayerAvaregeVelocity(Integer howMuch, Integer timeScale){
-        howMuch = (howMuch == null || howMuch > 20 ? 20 : howMuch);
+    public static Vec3d findPlayerAvaregeVelocity(Integer accuracy, Integer timeScale){
+        accuracy = (accuracy == null || accuracy > 20 ? 20 : accuracy);
         timeScale = timeScale == null ? 1 : timeScale;
 
 
         Vec3d totalDisplacement = new Vec3d(0, 0, 0);
 
-        if(howMuch <= PositionTimes.size()){
-            for (int i = 0; i < howMuch; i++) {
+        if(accuracy <= PositionTimes.size()){
+            for (int i = 0; i < accuracy; i++) {
                 Vec3d pos1 = PositionTimes.get(i);
                 if((i + 1) >= PositionTimes.size()){
-                    howMuch--;
+                    accuracy--;
                     break;
                 }
 
@@ -47,11 +47,11 @@ public class FindPlayerVelocity {
 //                AvaregeVelocityMod.LOGGER.info("totalDisplacement: " + totalDisplacement.toString());
 //                AvaregeVelocityMod.LOGGER.info("i: " + i);
             }
-            totalDisplacement = new Vec3d(totalDisplacement.x / howMuch, totalDisplacement.y / howMuch, totalDisplacement.z / howMuch);
+            totalDisplacement = new Vec3d(totalDisplacement.x / accuracy, totalDisplacement.y / accuracy, totalDisplacement.z / accuracy);
 //            AvaregeVelocityMod.LOGGER.info("totalDisplacement after divide: " + (totalDisplacement.multiply(20)).toString());
-            // To get the velocity of the player by seconds: * 20
-            // To get the velocity of the player by Minutes: * 1_200
-            // To get the velocity of the player by Hours: * 72_000
+            // To get the velocity of the player by seconds: *20
+            // To get the velocity of the player by Minutes: *1_200
+            // To get the velocity of the player by Hours: *72_000
             return totalDisplacement.multiply(timeScale);
         }
 
