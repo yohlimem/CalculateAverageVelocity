@@ -36,7 +36,6 @@ public class FindPlayerVelocity {
 
                 totalDisplacement = totalDisplacement.add(displacement(pos1, pos2));
                 AvaregeVelocityMod.LOGGER.info("totalDisplacement: " + totalDisplacement.toString());
-//                AvaregeVelocityMod.LOGGER.info("i: " + i);
             }
             totalDisplacement = new Vec3d(totalDisplacement.x / howMuch, totalDisplacement.y / howMuch, totalDisplacement.z / howMuch);
             AvaregeVelocityMod.LOGGER.info("totalDisplacement after divide: " + totalDisplacement.toString());
