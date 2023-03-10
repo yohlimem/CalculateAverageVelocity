@@ -22,8 +22,11 @@ public class FindPlayerVelocity {
 
 
     }
-    public static Vec3d findPlayerAvaregeVelocity(Integer howMuch){
+    public static Vec3d findPlayerAvaregeVelocity(Integer howMuch, Integer timeScale){
         howMuch = (howMuch == null || howMuch > 20 ? 20 : howMuch);
+        timeScale = timeScale == null ? 1 : timeScale;
+
+
         Vec3d totalDisplacement = new Vec3d(0, 0, 0);
 
         if(howMuch <= PositionTimes.size()){
@@ -46,19 +49,16 @@ public class FindPlayerVelocity {
             }
             totalDisplacement = new Vec3d(totalDisplacement.x / howMuch, totalDisplacement.y / howMuch, totalDisplacement.z / howMuch);
 //            AvaregeVelocityMod.LOGGER.info("totalDisplacement after divide: " + (totalDisplacement.multiply(20)).toString());
-            // to get to seconds we have to multiply by 20!!!!!!!!
-            return totalDisplacement.multiply(20);
+            // To get the velocity of the player by seconds: * 20
+            // To get the velocity of the player by Minutes: * 1_200
+            // To get the velocity of the player by Hours: * 72_000
+            return totalDisplacement.multiply(timeScale);
         }
 
         return new Vec3d(0, 0, 0);
 
     }
 
-//    public static boolean playerMoving(PlayerEntity player){
-//        AvaregeVelocityMod.LOGGER.info(String.valueOf(player.getMovementSpeed()));
-//        return player.isM() > 0.1d;
-//
-//    }
 
     public static Vec3d displacement(Vec3d pos1, Vec3d pos2){
         return pos2.subtract(pos1);
