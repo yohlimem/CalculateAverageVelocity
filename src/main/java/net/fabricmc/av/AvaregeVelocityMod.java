@@ -29,7 +29,7 @@ public class AvaregeVelocityMod implements ModInitializer {
 			if(player == null) return;
 			FindPlayerVelocity.onPlayerMove(player);
 			Vec3d vel = FindPlayerVelocity.findPlayerAvaregeVelocity(20, TimeScale.SECONDS);
-//			AvaregeVelocityMod.LOGGER.info(vel);
+			AvaregeVelocityMod.LOGGER.info(String.valueOf(vel.toString()));
 		});
 	}
 }
