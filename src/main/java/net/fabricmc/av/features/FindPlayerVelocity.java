@@ -22,15 +22,17 @@ public class FindPlayerVelocity {
 
     }
     public static Vec3d findPlayerAvaregeVelocity(Integer howMuch){
-        howMuch = (howMuch == null || howMuch > 20 ? 20 : howMuch) - 1;
+        howMuch = (howMuch == null || howMuch > 20 ? 20 : howMuch);
         Vec3d totalDisplacement = new Vec3d(0, 0, 0);
 
         if(howMuch <= PositionTimes.size()){
             for (int i = 0; i < howMuch; i++) {
                 Vec3d pos1 = PositionTimes.get(i);
-                if((i + 1) > PositionTimes.size())
+                if((i + 1) > PositionTimes.size()){
+                    // if there is one  less position to calculate take one from how much
+                    howMuch--;
                     break;
-
+                }
                 Vec3d pos2 = PositionTimes.get(i + 1);
                 totalDisplacement = totalDisplacement.add(displacement(pos1, pos2));
                 AvaregeVelocityMod.LOGGER.info("totalDisplacement: " + totalDisplacement.toString());
