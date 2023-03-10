@@ -1,6 +1,5 @@
 package net.fabricmc.av.features;
 
-import net.fabricmc.av.AvaregeVelocityMod;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Vec3d;
 
@@ -9,15 +8,15 @@ import java.util.List;
 
 public class FindPlayerVelocity {
 
-    public static List<Vec3d> PositionTimes = new ArrayList<>();
+    public static List<Vec3d> positions = new ArrayList<>();
 
     public static void onPlayerMove(PlayerEntity player){
 //        PlayerEntity player = client.player;
         if(player == null) return;
-        PositionTimes.add(player.getPos());
-        if(PositionTimes.size() > 20){
+        positions.add(0, player.getPos());
+        if(positions.size() > 20){
 //            AvaregeVelocityMod.LOGGER.info(PositionTimes.toString());
-            PositionTimes.remove(0);
+            positions.remove(positions.size() - 1);
         }
 
 
@@ -29,15 +28,15 @@ public class FindPlayerVelocity {
 
         Vec3d totalDisplacement = new Vec3d(0, 0, 0);
 
-        if(accuracy <= PositionTimes.size()){
+        if(accuracy <= positions.size()){
             for (int i = 0; i < accuracy; i++) {
-                Vec3d pos1 = PositionTimes.get(i);
-                if((i + 1) >= PositionTimes.size()){
+                Vec3d pos1 = positions.get(i);
+                if((i + 1) >= positions.size()){
                     accuracy--;
                     break;
                 }
 
-                Vec3d pos2 = PositionTimes.get(i+1);
+                Vec3d pos2 = positions.get(i+1);
 
 
 //                AvaregeVelocityMod.LOGGER.info("pos1: " + pos1.toString());
