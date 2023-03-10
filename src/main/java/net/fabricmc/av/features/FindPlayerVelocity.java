@@ -12,7 +12,6 @@ public class FindPlayerVelocity {
     public static List<Vec3d> PositionTimes = new ArrayList<>();
 
     public static void onPlayerMove(PlayerEntity player){
-//        PlayerEntity player = client.player;
         if(player == null) return;
         PositionTimes.add(new Vec3d(player.getX(), player.getY(), player.getZ()));
         if(PositionTimes.size() > 20){
@@ -28,14 +27,16 @@ public class FindPlayerVelocity {
         if(howMuch <= PositionTimes.size()){
             for (int i = 0; i < howMuch; i++) {
                 Vec3d pos1 = PositionTimes.get(i);
-                if((i + 1) > PositionTimes.size()){
-                    // if there is one  less position to calculate take one from how much
+                if((i + 1) >= PositionTimes.size()){
                     howMuch--;
                     break;
                 }
-                Vec3d pos2 = PositionTimes.get(i + 1);
+
+                Vec3d pos2 = PositionTimes.get(i+1);
+
                 totalDisplacement = totalDisplacement.add(displacement(pos1, pos2));
                 AvaregeVelocityMod.LOGGER.info("totalDisplacement: " + totalDisplacement.toString());
+//                AvaregeVelocityMod.LOGGER.info("i: " + i);
             }
             totalDisplacement = new Vec3d(totalDisplacement.x / howMuch, totalDisplacement.y / howMuch, totalDisplacement.z / howMuch);
             AvaregeVelocityMod.LOGGER.info("totalDisplacement after divide: " + totalDisplacement.toString());
@@ -45,12 +46,6 @@ public class FindPlayerVelocity {
         return new Vec3d(0, 0, 0);
 
     }
-
-//    public static boolean playerMoving(PlayerEntity player){
-//        AvaregeVelocityMod.LOGGER.info(String.valueOf(player.getMovementSpeed()));
-//        return player.isM() > 0.1d;
-//
-//    }
 
     public static Vec3d displacement(Vec3d pos1, Vec3d pos2){
         return pos2.subtract(pos1);
